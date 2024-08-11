@@ -35,22 +35,15 @@ const Home = () => {
     ];
 
     useEffect(() => {
-        if(localStorage.userAuth) {
+        if (localStorage.userAuth) {
             setUserName(JSON.parse(localStorage.userAuth).username)
         }
-        if (userName !== 'User') {
-            setShowLogin(() => true);
-        } else setShowRegister(() => true);
-
-    }, [localStorage.userAuth])
+    }, [])
     const createPost = (e) => {
         e.preventDefault();
         return;
     }
 
-    const getImageURL = (imgSrc) => {
-        return new URL(`${imgSrc}`, import.meta.url)
-    }
 
     const handleShowRegister = () => {
         setShowRegister(() => true);
@@ -61,12 +54,25 @@ const Home = () => {
         setShowRegister(() => false);
     }
 
+    const handleRegisterAndLogin = () => {
+        setShowRegister(false);
+        setShowLogin(false);
+        setIsModalOpen(false)
+    }
+
+    const handleModalOpen = () => {
+        if (localStorage.userAuth) {
+            setShowLogin(true)
+        } else setShowRegister(true);
+        setIsModalOpen(true)
+    }
+
     return (
         <>
             <div className="w-1/3 min-w-[500px]">
                 <h1 className="text-3xl text-[#C5C7CA] mb-3">Hello {userName}</h1>
                 <p className="text-base text-[#7F8084] w-4/5 mb-9">How are you doing today? Would you like to share something with the community &#129303;</p>
-                <Card classNames={'w-full px-4 py-3'} onModalOpen={() => setIsModalOpen(true)}>
+                <Card classNames={'w-full px-4 py-3'} onModalOpen={handleModalOpen}>
                     <div className="text-[#C5C7CA] pl-0.5 py-2">Create Post</div>
                     <form onSubmit={createPost} className="flex flex-col">
                         <div className="flex items-center bg-[#191920] rounded-lg px-3 py-4">
@@ -120,9 +126,9 @@ const Home = () => {
                 }
             </div>
             {isModalOpen && (<Modal>
-                {showRegister && <Register renderCloseButton={true} onClose={() => setIsModalOpen(false)} onShowLogin={handleShowLogin} />}
+                {showRegister && <Register renderCloseButton={true} onClose={() => setIsModalOpen(false)} onShowLogin={handleShowLogin} onLogin={handleRegisterAndLogin} />}
 
-                {showLogin && <Login renderCloseButton={true} onClose={() => setIsModalOpen(false)} onShowRegister={handleShowRegister} />}
+                {showLogin && <Login renderCloseButton={true} onClose={() => setIsModalOpen(false)} onShowRegister={handleShowRegister} onLogin={handleRegisterAndLogin} />}
 
             </Modal>)}
         </>

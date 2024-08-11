@@ -30,7 +30,7 @@ const Login = ({ renderCloseButton = false, onClose, onShowRegister, onLogin }) 
     return (
         <form onSubmit={loginUser}>
             <Card classNames={`py-4 px-4 flex flex-col items-center`}>
-                {renderCloseButton && <div onClick={onClose} className="text-white bg-gray-900 p-1 rounded-full absolute top-1 right-2 cursor-pointer">
+                {renderCloseButton && <div onClick={onClose} className="text-white bg-gray-900 p-1 rounded-full absolute top-5 right-2 cursor-pointer">
                     <IoIosClose />
                 </div>}
                 <p className="font-medium text-sm text-[#6B6C70] leading-4 ">WELCOME BACK</p>
