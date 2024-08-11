@@ -62,9 +62,18 @@ const Home = () => {
 
     const handleModalOpen = () => {
         if (localStorage.userAuth) {
-            setShowLogin(true)
-        } else setShowRegister(true);
-        setIsModalOpen(true)
+            setShowRegister(() => false);
+            setShowLogin(() => true);
+        } else {
+            setShowLogin(() => false);
+            setShowRegister(() => true)};
+        setIsModalOpen(true);
+    }
+
+    const handleModalClose = () => {
+        setShowLogin(() => false);
+        setShowRegister(() => false);
+        setIsModalOpen(() => false);
     }
 
     return (
@@ -126,9 +135,9 @@ const Home = () => {
                 }
             </div>
             {isModalOpen && (<Modal>
-                {showRegister && <Register renderCloseButton={true} onClose={() => setIsModalOpen(false)} onShowLogin={handleShowLogin} onLogin={handleRegisterAndLogin} />}
+                {showRegister && <Register renderCloseButton={true} onClose={handleModalClose} onShowLogin={handleShowLogin} onLogin={handleRegisterAndLogin} />}
 
-                {showLogin && <Login renderCloseButton={true} onClose={() => setIsModalOpen(false)} onShowRegister={handleShowRegister} onLogin={handleRegisterAndLogin} />}
+                {showLogin && <Login renderCloseButton={true} onClose={handleModalClose} onShowRegister={handleShowRegister} onLogin={handleRegisterAndLogin} />}
 
             </Modal>)}
         </>
