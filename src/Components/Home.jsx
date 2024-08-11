@@ -17,7 +17,7 @@ const Home = () => {
         {
             id: 'dsafjklda_8798687@^#$^dkjfhs',
             username: 'Theresa Webb',
-            img: '../../public/assets/user1.png',
+            img: '../public/assets/user1.png',
             emoji: '👋',
             postTime: '5mins',
             editStatus: false,
@@ -26,7 +26,7 @@ const Home = () => {
         {
             id: 'cxzmvmzcxbv_4e5232563%$%$*^xczmvn',
             username: 'Marvin McKinney',
-            img: '../../public/assets/user1.png',
+            img: '../public/assets/user2.png',
             emoji: '😞',
             postTime: '8mins',
             editStatus: true,
@@ -86,7 +86,7 @@ const Home = () => {
                         <Card classNames={'w-full px-4 py-3'} onModalOpen={() => setIsModalOpen(true)} key={post.id}>
                             <div className="flex justify-between items-center py-1">
                                 <div className="text-[#C5C7CA] flex gap-3 py-3">
-                                    <img src={getImageURL(post.img)} alt="user-image" className="w-12 h-12 rounded-full object-cover" />
+                                    <img src={post.img} alt="user-image" className="w-12 h-12 rounded-full object-cover" />
                                     <div id="user-info">
                                         <div className="text-base">{post.username}</div>
                                         <div className="flex gap-2 text-sm text-[#7F8084]">
