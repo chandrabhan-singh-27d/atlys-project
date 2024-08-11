@@ -2,7 +2,8 @@ import { useState } from "react";
 import Home from "./Components/Home"
 import Login from "./Components/Login"
 import Register from "./Components/Register"
-import Logo from './assets/logo.svg?react'
+// import Logo from '/assets/logo.svg?react'
+import Logo from '../public/assets/logo.svg?react'
 
 function App() {
   const [showLogin, setShowLogin] = useState(true);

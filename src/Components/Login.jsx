@@ -23,7 +23,7 @@ const Login = ({ renderCloseButton = false, onClose, onShowRegister, onLogin }) 
                 onLogin()
             }
         } else {
-            alert("Please login before moving ahead");
+            alert("Please register before moving ahead");
             return;
         }
     }
