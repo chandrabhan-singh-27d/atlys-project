@@ -4,10 +4,10 @@ import { PiEyeSlashLight } from "react-icons/pi";
 import { PiEyeLight } from "react-icons/pi";
 import { GoArrowRight } from "react-icons/go";
 import Button from "../UI/Button";
+import { IoIosClose } from "react-icons/io";
 
 
-
-const Register = () => {
+const Register = ({ renderCloseButton = false, onClose, onShowLogin, onLogin }) => {
     const [passwordVisible, setPasswordVisibility] = useState(false);
     const [userEmail, setUserEmail] = useState("");
     const [username, setUsername] = useState("");
@@ -15,18 +15,34 @@ const Register = () => {
 
     const registerUser = (e) => {
         e.preventDefault();
+        
+        if(!userEmail) {
+            alert("Please enter your email address");
+            return;
+        } else if(!password) {
+            alert("Please set a password");
+            return;
+        } else if(!username) {
+            alert("Please choose a username");
+            return;
+        }
+
         localStorage.setItem('userAuth', JSON.stringify({
             username,
+            email: userEmail,
             password
         }));
         setUsername("");
         setPassword("");
         /* navigate to show post */
-        alert("Welcome to Atlys!");
+        onLogin()
     }
     return (
         <form onSubmit={registerUser}>
-            <Card classNames={`py-4 px-4 flex flex-col items-center`}>
+            <Card classNames={`py-4 px-4 flex flex-col items-center relative`}>
+                {renderCloseButton && <div onClick={onClose} className="text-white bg-gray-900 p-1 rounded-full absolute top-1 right-2 cursor-pointer">
+                    <IoIosClose />
+                </div>}
                 <p className="font-medium text-sm text-[#6B6C70] leading-4 ">SIGN UP</p>
                 <h4 className="font-semibold text-lg text-white leading-5 py-2 mb-2">Create an account to continue</h4>
                 <div className="flex flex-col w-full pt-3">
@@ -56,9 +72,11 @@ const Register = () => {
                     <Button type={'submit'} classNames={`w-full mt-5 mb-2`}>Continue</Button>
                     <div className="flex items-center gap-1 px-0.5 text-sm">
                         <p className="text-[#7F8084]">Already have an account?</p>
+                        <span onClick={onShowLogin} className="flex items-center gap-1">
                         <p className="text-[#C5C7CA] cursor-pointer">Login</p>
                         <span className="text-[#C5C7CA] mt-0.5 cursor-pointer">
                             <GoArrowRight />
+                        </span>
                         </span>
                     </div>
                 </div>

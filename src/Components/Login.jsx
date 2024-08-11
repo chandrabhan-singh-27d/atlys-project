@@ -4,31 +4,35 @@ import { PiEyeSlashLight } from "react-icons/pi";
 import { PiEyeLight } from "react-icons/pi";
 import { GoArrowRight } from "react-icons/go";
 import Button from "../UI/Button";
+import { IoIosClose } from "react-icons/io";
 
 
-
-const Login = () => {
+const Login = ({ renderCloseButton = false, onClose, onShowRegister, onLogin }) => {
     const [passwordVisible, setPasswordVisibility] = useState(false);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
     const loginUser = (e) => {
         e.preventDefault();
-        if(localStorage.userAuth) {
-            if(username !== JSON.parse(localStorage.userAuth).username || password !== JSON.parse(localStorage.userAuth).password) {
+        if (localStorage.userAuth) {
+
+            if ((username !== JSON.parse(localStorage.userAuth).username && username !== JSON.parse(localStorage.userAuth).email) || password !== JSON.parse(localStorage.userAuth).password) {
                 alert("Username or password is incorrect")
                 return;
             } else {
-                /* Navigate to post page */
+                onLogin()
             }
         } else {
-            alert("Please register before moving ahead");
-            /* Navigate to register page */
+            alert("Please login before moving ahead");
+            return;
         }
     }
     return (
         <form onSubmit={loginUser}>
             <Card classNames={`py-4 px-4 flex flex-col items-center`}>
+                {renderCloseButton && <div onClick={onClose} className="text-white bg-gray-900 p-1 rounded-full absolute top-1 right-2 cursor-pointer">
+                    <IoIosClose />
+                </div>}
                 <p className="font-medium text-sm text-[#6B6C70] leading-4 ">WELCOME BACK</p>
                 <h4 className="font-semibold text-lg text-white leading-5 py-2 mb-2">Log into your account</h4>
                 <div className="flex flex-col w-full py-3">
@@ -55,9 +59,11 @@ const Login = () => {
                     <Button type={'submit'} classNames={`w-full mt-5 mb-2`}>Login now</Button>
                     <div className="flex items-center gap-1 px-0.5 text-sm">
                         <p className="text-[#7F8084]">Not registered yet?</p>
-                        <p className="text-[#C5C7CA] cursor-pointer">Register</p>
-                        <span className="text-[#C5C7CA] mt-0.5 cursor-pointer">
-                            <GoArrowRight />
+                        <span onClick={onShowRegister} className="flex items-center gap-1">
+                            <p className="text-[#C5C7CA] cursor-pointer">Register</p>
+                            <span className="text-[#C5C7CA] mt-0.5 cursor-pointer">
+                                <GoArrowRight />
+                            </span>
                         </span>
                     </div>
                 </div>
