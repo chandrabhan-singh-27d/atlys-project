@@ -17,7 +17,7 @@ const Home = () => {
         {
             id: 'dsafjklda_8798687@^#$^dkjfhs',
             username: 'Theresa Webb',
-            img: '../public/assets/user1.png',
+            img: `${import.meta.env.BASE_URL}assets/user1.png`,
             emoji: '👋',
             postTime: '5mins',
             editStatus: false,
@@ -26,7 +26,7 @@ const Home = () => {
         {
             id: 'cxzmvmzcxbv_4e5232563%$%$*^xczmvn',
             username: 'Marvin McKinney',
-            img: '../public/assets/user2.png',
+            img: `${import.meta.env.BASE_URL}assets/user2.png`,
             emoji: '😞',
             postTime: '8mins',
             editStatus: true,
